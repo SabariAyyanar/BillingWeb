@@ -52,6 +52,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -167,9 +169,69 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="BillingModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BillingModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BillingModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BillingModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BillingModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="GetAll_DeliveryMode_Result.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetAll_DeliveryNote_Result.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetAll_Inventory_Result.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetAll_Invoice_Result.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetAll_PaymentMode_Result.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetAll_ProductCategory_Result.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetAll_ProductSubCategoryWithProductCategory_Result.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetAll_ProductSubCategory_Result.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetAll_Product_Result.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetAll_Quotation_Result.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetAll_Size_Result.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetAll_Stock_Result.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetAll_Tax_Result.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetAll_Unit_Result.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Get_Product_Result.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -177,9 +239,91 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="sp_GetMonthlyInventoryReprot_Result.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetMonthlyInvoiceReprot_Result.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetMonthlytblDeliveryNoteReport_Result.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetMonthlytblQuotationReport_Result.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="tblDeliveryMode.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDeliveryNote.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblDeliveryNoteItem.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblInventory.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblInventoryItem.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblInvoice.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblInvoiceItem.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblMeasurementUnit.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPaymentMode.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblProduct.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblProductCategory.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblProductSubCategory.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblQuotation.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblQuotationItem.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblRole.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSize.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblStock.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblTax.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUnit.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblUser.cs">
+      <DependentUpon>BillingModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BillingModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BillingModel.edmx</DependentUpon>
+      <LastGenOutput>BillingModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="BillingModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BillingModel.edmx</DependentUpon>
+      <LastGenOutput>BillingModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -188,6 +332,13 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="BillingModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BillingModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="BillingModel.edmx.diagram">
+      <DependentUpon>BillingModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -245,6 +396,9 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
