@@ -14,13 +14,14 @@
                 @Html.ActionLink("Log off", "LogOff", "Login", new { area = "" })
 
             </li>
+            <li>@Html.ActionLink("Contact Us", "Contact", "Login",  new { @class = "navbar-right" })</li>
         </ul>
     }
 }
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        @*<li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-            <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>*@
+        <li>@Html.ActionLink("Contact Us", "Contact", "Login",  new { @class = "navbar-right" })</li>
+          
     </ul>
 }

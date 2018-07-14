@@ -15,6 +15,14 @@ namespace BillingWeb.Controllers
         {
             return View();
         }
+        public ActionResult Welcome()
+        {
+            return View();
+        }
+        public ActionResult Contact()
+        {
+            return View();
+        }
         public ActionResult LogOff()
         {
             Globals.SignOut();
@@ -40,14 +48,14 @@ namespace BillingWeb.Controllers
                         if (objUserDetails.RoleId == 1)
                         {
                             //Admin
-                            controllerName = "ContactDetails";
-                            actionName = "Create";
+                            controllerName = "Login";
+                            actionName = "Welcome";
                         }
                         else
                         {
                             //User
-                            controllerName = "ContactDetails";
-                            actionName = "Create";
+                            controllerName = "Login";
+                            actionName = "Welcome";
                         }
                         return Json(new
                         {
