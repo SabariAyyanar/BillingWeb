@@ -39,7 +39,7 @@ namespace BillingWeb.Controllers
             {
                 if (!string.IsNullOrEmpty(userID.Trim()) && !string.IsNullOrEmpty(password.Trim()))
                 {
-                    tblUser objUserDetails = db.tblUsers.Where(a => a.UserName == userID && a.Password == password).FirstOrDefault();
+                    tblUser objUserDetails = db.tblUsers.Where(a => a.UserName == userID && a.Password == password&&a.IsActive==true).FirstOrDefault();
 
                     if (objUserDetails != null)
                     {

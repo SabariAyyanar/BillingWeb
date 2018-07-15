@@ -19,7 +19,7 @@ namespace BillingWeb.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            var tblUsers = db.tblUsers.Include(t => t.tblRole);
+            var tblUsers = db.tblUsers.Include(t => t.tblRole).Where(a=>a.IsActive==true);
             ViewBag.Users = new tblUser();
             ViewBag.RoleId = new SelectList(db.tblRoles, "RoleId", "Role");
             return View(tblUsers.ToList());
@@ -70,7 +70,7 @@ namespace BillingWeb.Controllers
             }
             ViewBag.Users = tblUser;
             ViewBag.RoleId = new SelectList(db.tblRoles, "RoleId", "Role", tblUser.RoleId);
-            var tblUsersList = db.tblUsers.Include(t => t.tblRole);
+            var tblUsersList = db.tblUsers.Include(t => t.tblRole).Where(a=>a.IsActive==true);
             return View("Index", tblUsersList.ToList());
            // return View(tblUser);
         }
