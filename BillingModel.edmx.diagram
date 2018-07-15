@@ -79,6 +79,9 @@
         <AssociationConnector Association="Billing4Model.FK_tblTax_tblUser1" ManuallyRouted="false" />
         <AssociationConnector Association="Billing4Model.FK_tblUnit_tblUser" ManuallyRouted="false" />
         <AssociationConnector Association="Billing4Model.FK_tblUnit_tblUser1" ManuallyRouted="false" />
+        <AssociationConnector Association="Billing4Model.FK_tblProduct_tblSize" />
+        <AssociationConnector Association="Billing4Model.FK_tblProduct_tblTax" />
+        <AssociationConnector Association="Billing4Model.FK_tblProduct_tblUnit" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

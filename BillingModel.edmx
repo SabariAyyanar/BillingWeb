@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Billing4Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Billing4Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tblDeliveryMode">
           <Key>
             <PropertyRef Name="DeliveryModeID" />
@@ -713,6 +713,42 @@
             </Principal>
             <Dependent Role="tblProduct">
               <PropertyRef Name="ProductSubCategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProduct_tblSize">
+          <End Role="tblSize" Type="Self.tblSize" Multiplicity="0..1" />
+          <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSize">
+              <PropertyRef Name="SizeID" />
+            </Principal>
+            <Dependent Role="tblProduct">
+              <PropertyRef Name="SizeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProduct_tblTax">
+          <End Role="tblTax" Type="Self.tblTax" Multiplicity="0..1" />
+          <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTax">
+              <PropertyRef Name="TaxID" />
+            </Principal>
+            <Dependent Role="tblProduct">
+              <PropertyRef Name="TaxID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProduct_tblUnit">
+          <End Role="tblUnit" Type="Self.tblUnit" Multiplicity="0..1" />
+          <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUnit">
+              <PropertyRef Name="UnitID" />
+            </Principal>
+            <Dependent Role="tblProduct">
+              <PropertyRef Name="UnitID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1429,6 +1465,18 @@
             <End Role="tblProductSubCategory" EntitySet="tblProductSubCategory" />
             <End Role="tblProduct" EntitySet="tblProduct" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblProduct_tblSize" Association="Self.FK_tblProduct_tblSize">
+            <End Role="tblSize" EntitySet="tblSize" />
+            <End Role="tblProduct" EntitySet="tblProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProduct_tblTax" Association="Self.FK_tblProduct_tblTax">
+            <End Role="tblTax" EntitySet="tblTax" />
+            <End Role="tblProduct" EntitySet="tblProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProduct_tblUnit" Association="Self.FK_tblProduct_tblUnit">
+            <End Role="tblUnit" EntitySet="tblUnit" />
+            <End Role="tblProduct" EntitySet="tblProduct" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblProduct_tblUser" Association="Self.FK_tblProduct_tblUser">
             <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblProduct" EntitySet="tblProduct" />
@@ -1526,8 +1574,7 @@
             <End Role="tblUser" EntitySet="tblUser" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Billing4Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1770,6 +1817,9 @@
           <NavigationProperty Name="tblUser" Relationship="Self.FK_tblProduct_tblUser" FromRole="tblProduct" ToRole="tblUser" />
           <NavigationProperty Name="tblUser1" Relationship="Self.FK_tblProduct_tblUser1" FromRole="tblProduct" ToRole="tblUser" />
           <NavigationProperty Name="tblQuotationItems" Relationship="Self.FK_tblQuotationItem_tblProduct" FromRole="tblProduct" ToRole="tblQuotationItem" />
+          <NavigationProperty Name="tblSize" Relationship="Billing4Model.FK_tblProduct_tblSize" FromRole="tblProduct" ToRole="tblSize" />
+          <NavigationProperty Name="tblTax" Relationship="Billing4Model.FK_tblProduct_tblTax" FromRole="tblProduct" ToRole="tblTax" />
+          <NavigationProperty Name="tblUnit" Relationship="Billing4Model.FK_tblProduct_tblUnit" FromRole="tblProduct" ToRole="tblUnit" />
         </EntityType>
         <EntityType Name="tblProductCategory">
           <Key>
@@ -1882,6 +1932,7 @@
           <NavigationProperty Name="tblUser" Relationship="Self.FK_tblSize_tblUser" FromRole="tblSize" ToRole="tblUser" />
           <NavigationProperty Name="tblUser1" Relationship="Self.FK_tblSize_tblUser1" FromRole="tblSize" ToRole="tblUser" />
           <NavigationProperty Name="tblStocks" Relationship="Self.FK_tblStock_tblSize" FromRole="tblSize" ToRole="tblStock" />
+          <NavigationProperty Name="tblProducts" Relationship="Billing4Model.FK_tblProduct_tblSize" FromRole="tblSize" ToRole="tblProduct" />
         </EntityType>
         <EntityType Name="tblStock">
           <Key>
@@ -1935,6 +1986,7 @@
           <NavigationProperty Name="tblStocks" Relationship="Self.FK_tblStock_tblTax" FromRole="tblTax" ToRole="tblStock" />
           <NavigationProperty Name="tblUser" Relationship="Self.FK_tblTax_tblUser" FromRole="tblTax" ToRole="tblUser" />
           <NavigationProperty Name="tblUser1" Relationship="Self.FK_tblTax_tblUser1" FromRole="tblTax" ToRole="tblUser" />
+          <NavigationProperty Name="tblProducts" Relationship="Billing4Model.FK_tblProduct_tblTax" FromRole="tblTax" ToRole="tblProduct" />
         </EntityType>
         <EntityType Name="tblUnit">
           <Key>
@@ -1956,6 +2008,7 @@
           <NavigationProperty Name="tblStocks" Relationship="Self.FK_tblStock_tblUnit" FromRole="tblUnit" ToRole="tblStock" />
           <NavigationProperty Name="tblUser" Relationship="Self.FK_tblUnit_tblUser" FromRole="tblUnit" ToRole="tblUser" />
           <NavigationProperty Name="tblUser1" Relationship="Self.FK_tblUnit_tblUser1" FromRole="tblUnit" ToRole="tblUser" />
+          <NavigationProperty Name="tblProducts" Relationship="Billing4Model.FK_tblProduct_tblUnit" FromRole="tblUnit" ToRole="tblProduct" />
         </EntityType>
         <EntityType Name="tblUser">
           <Key>
@@ -2937,7 +2990,7 @@
           </FunctionImport>
           <FunctionImport Name="GetAll_DeliveryMode" ReturnType="Collection(Billing4Model.GetAll_DeliveryMode_Result)" />
           <FunctionImport Name="GetAll_DeliveryNote" ReturnType="Collection(Billing4Model.GetAll_DeliveryNote_Result)">
-            <Parameter Name="DeliveryNoteID" Mode="In" Type="Int32" />
+          <Parameter Name="DeliveryNoteID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetAll_DeliveryNoteItem">
             <Parameter Name="DeliveryNoteID" Mode="In" Type="Int32" />
@@ -2948,7 +3001,7 @@
             <Parameter Name="DeliveryNoteItemID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetAll_Inventory" ReturnType="Collection(Billing4Model.GetAll_Inventory_Result)">
-            <Parameter Name="InventoryID" Mode="In" Type="Int32" />
+          <Parameter Name="InventoryID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetAll_InventoryItem">
             <Parameter Name="InventoryID" Mode="In" Type="Int32" />
@@ -2959,7 +3012,7 @@
             <Parameter Name="InventoryItemID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetAll_Invoice" ReturnType="Collection(Billing4Model.GetAll_Invoice_Result)">
-            <Parameter Name="InvoiceID" Mode="In" Type="Int32" />
+          <Parameter Name="InvoiceID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetAll_InvoiceItem">
             <Parameter Name="InvoiceID" Mode="In" Type="Int32" />
@@ -2975,7 +3028,7 @@
             <Parameter Name="PaymentModeItemID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetAll_Product" ReturnType="Collection(Billing4Model.GetAll_Product_Result)">
-            <Parameter Name="ProductID" Mode="In" Type="Int32" />
+          <Parameter Name="ProductID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetAll_ProductCategory" ReturnType="Collection(Billing4Model.GetAll_ProductCategory_Result)" />
           <FunctionImport Name="GetAll_ProductSubCategory" ReturnType="Collection(Billing4Model.GetAll_ProductSubCategory_Result)">
@@ -2983,10 +3036,10 @@
             <Parameter Name="ProductCategoryID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetAll_ProductSubCategoryWithProductCategory" ReturnType="Collection(Billing4Model.GetAll_ProductSubCategoryWithProductCategory_Result)">
-            <Parameter Name="ProductSubCategoryID" Mode="In" Type="Int32" />
+          <Parameter Name="ProductSubCategoryID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetAll_Quotation" ReturnType="Collection(Billing4Model.GetAll_Quotation_Result)">
-            <Parameter Name="QuotationID" Mode="In" Type="Int32" />
+          <Parameter Name="QuotationID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetAll_Quotation_Report">
             <Parameter Name="QuotationID" Mode="In" Type="Int32" />
@@ -3001,13 +3054,13 @@
             <Parameter Name="UnitID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetAll_Stock" ReturnType="Collection(Billing4Model.GetAll_Stock_Result)">
-            <Parameter Name="StockID" Mode="In" Type="Int32" />
+          <Parameter Name="StockID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetAll_Tax" ReturnType="Collection(Billing4Model.GetAll_Tax_Result)">
-            <Parameter Name="TaxID" Mode="In" Type="Int32" />
+          <Parameter Name="TaxID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetAll_Unit" ReturnType="Collection(Billing4Model.GetAll_Unit_Result)">
-            <Parameter Name="UnitID" Mode="In" Type="Int32" />
+          <Parameter Name="UnitID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetMax_Inventory" ReturnType="Collection(Int32)" />
           <FunctionImport Name="GetMax_Invoice" ReturnType="Collection(Int32)" />
@@ -3159,6 +3212,18 @@
             <Parameter Name="ProductID" Mode="In" Type="Int32" />
             <Parameter Name="Make" Mode="In" Type="String" />
           </FunctionImport>
+          <AssociationSet Name="FK_tblProduct_tblSize" Association="Billing4Model.FK_tblProduct_tblSize">
+            <End Role="tblSize" EntitySet="tblSizes" />
+            <End Role="tblProduct" EntitySet="tblProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProduct_tblTax" Association="Billing4Model.FK_tblProduct_tblTax">
+            <End Role="tblTax" EntitySet="tblTaxes" />
+            <End Role="tblProduct" EntitySet="tblProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProduct_tblUnit" Association="Billing4Model.FK_tblProduct_tblUnit">
+            <End Role="tblUnit" EntitySet="tblUnits" />
+            <End Role="tblProduct" EntitySet="tblProducts" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="Get_Product_Result">
           <Property Type="Int32" Name="ProductID" Nullable="false" />
@@ -3394,6 +3459,42 @@
           <Property Type="Decimal" Name="DiscountAmount" Nullable="true" Precision="38" Scale="2" />
           <Property Type="Decimal" Name="TotalAmount" Nullable="true" Precision="38" Scale="2" />
         </ComplexType>
+        <Association Name="FK_tblProduct_tblSize">
+          <End Type="Billing4Model.tblSize" Role="tblSize" Multiplicity="0..1" />
+          <End Type="Billing4Model.tblProduct" Role="tblProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSize">
+              <PropertyRef Name="SizeID" />
+            </Principal>
+            <Dependent Role="tblProduct">
+              <PropertyRef Name="SizeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProduct_tblTax">
+          <End Type="Billing4Model.tblTax" Role="tblTax" Multiplicity="0..1" />
+          <End Type="Billing4Model.tblProduct" Role="tblProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTax">
+              <PropertyRef Name="TaxID" />
+            </Principal>
+            <Dependent Role="tblProduct">
+              <PropertyRef Name="TaxID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProduct_tblUnit">
+          <End Type="Billing4Model.tblUnit" Role="tblUnit" Multiplicity="0..1" />
+          <End Type="Billing4Model.tblProduct" Role="tblProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUnit">
+              <PropertyRef Name="UnitID" />
+            </Principal>
+            <Dependent Role="tblProduct">
+              <PropertyRef Name="UnitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

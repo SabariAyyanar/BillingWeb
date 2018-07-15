@@ -22,6 +22,7 @@ namespace BillingWeb
             this.tblInvoiceItems = new HashSet<tblInvoiceItem>();
             this.tblQuotationItems = new HashSet<tblQuotationItem>();
             this.tblStocks = new HashSet<tblStock>();
+            this.tblProducts = new HashSet<tblProduct>();
         }
     
         public int SizeID { get; set; }
@@ -47,5 +48,7 @@ namespace BillingWeb
         public virtual tblUser tblUser1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblStock> tblStocks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblProduct> tblProducts { get; set; }
     }
 }

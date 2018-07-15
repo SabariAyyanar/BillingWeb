@@ -55,5 +55,8 @@ namespace BillingWeb
         public virtual tblUser tblUser1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblQuotationItem> tblQuotationItems { get; set; }
+        public virtual tblSize tblSize { get; set; }
+        public virtual tblTax tblTax { get; set; }
+        public virtual tblUnit tblUnit { get; set; }
     }
 }
