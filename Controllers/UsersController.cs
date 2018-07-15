@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BillingWeb;
+using BillingWeb.Models;
 
 namespace BillingWeb.Controllers
 {
+    [CustomAuthorize("1")]
     public class UsersController : Controller
     {
         private Billing4Entities db = new Billing4Entities();
@@ -18,23 +20,10 @@ namespace BillingWeb.Controllers
         public ActionResult Index()
         {
             var tblUsers = db.tblUsers.Include(t => t.tblRole);
+            ViewBag.Users = new tblUser();
+            ViewBag.RoleId = new SelectList(db.tblRoles, "RoleId", "Role");
             return View(tblUsers.ToList());
-        }
-
-        // GET: Users/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            tblUser tblUser = db.tblUsers.Find(id);
-            if (tblUser == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tblUser);
-        }
+        }     
 
         // GET: Users/Create
         public ActionResult Create()
@@ -52,8 +41,14 @@ namespace BillingWeb.Controllers
         {
             if (ModelState.IsValid)
             {
+                tblUser objSource = (tblUser)Session["UserDetails"];
+                tblUser.AddedBy = objSource.Id;
+                tblUser.IsActive = true;
+                tblUser.CreatedDate = DateTime.Now;
                 db.tblUsers.Add(tblUser);
                 db.SaveChanges();
+                ViewBag.Users = new tblUser();
+                TempData["Success"] = "User added successfully.";
                 return RedirectToAction("Index");
             }
 
@@ -73,8 +68,11 @@ namespace BillingWeb.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Users = tblUser;
             ViewBag.RoleId = new SelectList(db.tblRoles, "RoleId", "Role", tblUser.RoleId);
-            return View(tblUser);
+            var tblUsersList = db.tblUsers.Include(t => t.tblRole);
+            return View("Index", tblUsersList.ToList());
+           // return View(tblUser);
         }
 
         // POST: Users/Edit/5
@@ -88,6 +86,8 @@ namespace BillingWeb.Controllers
             {
                 db.Entry(tblUser).State = EntityState.Modified;
                 db.SaveChanges();
+                ViewBag.Users = new tblUser();
+                TempData["Success"] = "User updated successfully.";
                 return RedirectToAction("Index");
             }
             ViewBag.RoleId = new SelectList(db.tblRoles, "RoleId", "Role", tblUser.RoleId);
@@ -101,24 +101,20 @@ namespace BillingWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             tblUser tblUser = db.tblUsers.Find(id);
             if (tblUser == null)
             {
                 return HttpNotFound();
             }
-            return View(tblUser);
-        }
-
-        // POST: Users/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            tblUser tblUser = db.tblUsers.Find(id);
-            db.tblUsers.Remove(tblUser);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+            else
+            {
+                tblUser.IsActive = false;
+                db.Entry(tblUser).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+        }      
 
         protected override void Dispose(bool disposing)
         {

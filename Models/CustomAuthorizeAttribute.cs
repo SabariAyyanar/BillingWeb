@@ -17,13 +17,21 @@ namespace BillingWeb.Models
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
             bool authorize = false;
+
             tblUser up = (tblUser)Globals.TheUserSession;
-            foreach (var role in allowedroles)
+            if (up.Id > 0)
             {
-                if (up.RoleId == Convert.ToInt32(role))
+                foreach (var role in allowedroles)
                 {
-                    authorize = true;
+                    if (up.RoleId == Convert.ToInt32(role))
+                    {
+                        authorize = true;
+                    }
                 }
+            }
+            else
+            {
+                Globals.TheUserSession = null;
             }
             return authorize;
         }
