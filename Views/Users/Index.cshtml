@@ -47,8 +47,8 @@
         <td>
            ********
         </td>       
-        <td>
-            @Html.DisplayFor(modelItem => item.IsActive)
+        <td>          
+            @(item.IsActive == true ? "Yes" : "No")
         </td>       
         <td>
             @Html.DisplayFor(modelItem => item.tblRole.Role)
