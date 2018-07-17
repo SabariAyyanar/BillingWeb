@@ -11,7 +11,8 @@ namespace BillingWeb
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class tblTax
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -26,8 +27,13 @@ namespace BillingWeb
         }
     
         public int TaxID { get; set; }
+        [Display(Name = "Tax")]
         public string TaxName { get; set; }
+        [RegularExpression(@"^\d+\.\d{0,2}$")]
+        [Range(0, 9999999999999999.99)]
+        [Display(Name = "Tax %")]
         public Nullable<decimal> TaxPercentage { get; set; }
+        [Display(Name = "Effective From")]
         public Nullable<System.DateTime> EffectiveFrom { get; set; }
         public string Description { get; set; }
         public bool IsActive { get; set; }
